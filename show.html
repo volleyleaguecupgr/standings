@@ -7,264 +7,109 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: transparent;
-            min-height: 100vh;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-        }
+        body { font-family: 'Inter', sans-serif; background: transparent; min-height: 100vh; overflow: hidden; }
 
-        /* Main Graphics Container - Fixed 1920x1080 */
         .graphics-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 1920px;
-            height: 1080px;
-            max-width: 100vw;
-            max-height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            position: fixed; top: 0; left: 0; width: 1920px; height: 1080px;
+            max-width: 100vw; max-height: 100vh; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
             transform-origin: top left;
             transform: scale(calc(min(100vw / 1920px, 100vh / 1080px)));
             background: transparent;
         }
 
-        /* Animated Background Lines */
         .moving-lines {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 1920px;
-            height: 1080px;
-            overflow: hidden;
-            z-index: 1;
-            pointer-events: none;
+            position: absolute; top: 0; left: 0; width: 1920px; height: 1080px;
+            overflow: hidden; z-index: 1; pointer-events: none;
         }
 
         .line {
-            position: absolute;
-            height: 3px;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(59, 130, 246, 0.4) 20%, 
-                rgba(147, 197, 253, 0.6) 50%, 
-                rgba(59, 130, 246, 0.4) 80%, 
-                transparent 100%
-            );
-            border-radius: 2px;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+            position: absolute; height: 3px;
+            background: linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.4) 20%, 
+                rgba(147, 197, 253, 0.6) 50%, rgba(59, 130, 246, 0.4) 80%, transparent 100%);
+            border-radius: 2px; box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
         }
 
-        .line-1 {
-            width: 400px;
-            top: 15%;
-            animation: moveLine1 12s linear infinite;
-        }
+        .line-1 { width: 400px; top: 15%; animation: moveLine1 12s linear infinite; }
+        .line-2 { width: 350px; top: 35%; animation: moveLine2 10s linear infinite; }
+        .line-3 { width: 500px; top: 55%; animation: moveLine3 14s linear infinite; }
+        .line-4 { width: 300px; top: 75%; animation: moveLine4 11s linear infinite; }
+        .line-5 { width: 450px; top: 25%; animation: moveLine5 9s linear infinite; }
 
-        .line-2 {
-            width: 350px;
-            top: 35%;
-            animation: moveLine2 10s linear infinite;
-        }
+        @keyframes moveLine1 { 0% { left: -400px; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { left: 1920px; opacity: 0; } }
+        @keyframes moveLine2 { 0% { right: -350px; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { right: 1920px; opacity: 0; } }
+        @keyframes moveLine3 { 0% { left: -500px; opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { left: 1920px; opacity: 0; } }
+        @keyframes moveLine4 { 0% { right: -300px; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { right: 1920px; opacity: 0; } }
+        @keyframes moveLine5 { 0% { right: -450px; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { right: 1920px; opacity: 0; } }
 
-        .line-3 {
-            width: 500px;
-            top: 55%;
-            animation: moveLine3 14s linear infinite;
-        }
-
-        .line-4 {
-            width: 300px;
-            top: 75%;
-            animation: moveLine4 11s linear infinite;
-        }
-
-        .line-5 {
-            width: 450px;
-            top: 25%;
-            animation: moveLine5 9s linear infinite;
-        }
-
-        @keyframes moveLine1 {
-            0% { left: -400px; opacity: 0; }
-            15% { opacity: 1; }
-            85% { opacity: 1; }
-            100% { left: 1920px; opacity: 0; }
-        }
-
-        @keyframes moveLine2 {
-            0% { right: -350px; opacity: 0; }
-            15% { opacity: 1; }
-            85% { opacity: 1; }
-            100% { right: 1920px; opacity: 0; }
-        }
-
-        @keyframes moveLine3 {
-            0% { left: -500px; opacity: 0; }
-            20% { opacity: 1; }
-            80% { opacity: 1; }
-            100% { left: 1920px; opacity: 0; }
-        }
-
-        @keyframes moveLine4 {
-            0% { right: -300px; opacity: 0; }
-            15% { opacity: 1; }
-            85% { opacity: 1; }
-            100% { right: 1920px; opacity: 0; }
-        }
-
-        @keyframes moveLine5 {
-            0% { right: -450px; opacity: 0; }
-            15% { opacity: 1; }
-            85% { opacity: 1; }
-            100% { right: 1920px; opacity: 0; }
-        }
-
-        /* 3D Volleyball Scene */
-        .volleyball-3d-scene {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 1920px;
-            height: 1080px;
-            z-index: 3;
-            pointer-events: none;
-        }
+        .volleyball-3d-scene { position: absolute; top: 0; left: 0; width: 1920px; height: 1080px; z-index: 3; pointer-events: none; }
 
         .title {
-            position: absolute;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #f8fafc;
-            font-size: 48px;
-            font-weight: 900;
+            position: absolute; top: 50px; left: 50%; transform: translateX(-50%);
+            color: #f8fafc; font-size: 48px; font-weight: 900;
             text-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
             background: linear-gradient(135deg, #f8fafc 0%, #3b82f6 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            z-index: 15;
-            opacity: 0;
-            transform: translateX(-50%) translateY(-30px);
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            z-index: 15; opacity: 0; transform: translateX(-50%) translateY(-30px);
             animation: titleSlideIn 2s ease-out 0.5s forwards;
         }
 
-        @keyframes titleSlideIn {
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-        }
+        @keyframes titleSlideIn { to { opacity: 1; transform: translateX(-50%) translateY(0); } }
 
-        /* Standings Container */
         .standings-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 1200px;
-            z-index: 10;
-            opacity: 0;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 1200px; z-index: 10; opacity: 0;
             transform: translate(-50%, -50%) translateY(50px);
             animation: containerSlideIn 2s ease-out 1.5s forwards;
         }
 
-        @keyframes containerSlideIn {
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%) translateY(0);
-            }
-        }
+        @keyframes containerSlideIn { to { opacity: 1; transform: translate(-50%, -50%) translateY(0); } }
 
         .standings-table {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(20px);
-            border-radius: 25px;
-            overflow: hidden;
+            width: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px);
+            border-radius: 25px; overflow: hidden;
             border: 3px solid rgba(59, 130, 246, 0.4);
-            box-shadow: 
-                0 25px 80px rgba(0, 0, 0, 0.6),
-                0 0 60px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(59, 130, 246, 0.3);
         }
 
         .team-logo img { 
-            width:60px; height:60px; border-radius:10%; object-fit:contain;
-            background:rgba(255,255,255,0.9); 
-            box-shadow:0 6px 12px rgba(0,0,0,0.4); 
-            border:0.1px solid rgba(255,255,255,0.8); 
-            padding:2px;
+            width: 60px; height: 60px; border-radius: 10%; object-fit: contain;
+            background: rgba(255,255,255,0.9); 
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4); 
+            border: 0.1px solid rgba(255,255,255,0.8); 
+            padding: 2px;
         }
 
         .table-header {
-            background: linear-gradient(135deg, 
-                rgba(30, 64, 175, 0.95) 0%, 
-                rgba(59, 130, 246, 0.95) 100%
-            );
-            color: #f8fafc;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.95) 0%, rgba(59, 130, 246, 0.95) 100%);
+            color: #f8fafc; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 2px; position: relative; overflow: hidden;
         }
 
         .table-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
             animation: headerShimmer 3s ease-in-out infinite;
         }
 
-        @keyframes headerShimmer {
-            0%, 100% { transform: translateX(-100%); }
-            50% { transform: translateX(100%); }
-        }
+        @keyframes headerShimmer { 0%, 100% { transform: translateX(-100%); } 50% { transform: translateX(100%); } }
 
         .table-header th {
-            padding: 12px 10px;
-            text-align: center;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            border-right: 2px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            padding: 12px 10px; text-align: center; font-family: 'Inter', sans-serif;
+            font-size: 14px; border-right: 2px solid rgba(255, 255, 255, 0.2);
+            position: relative; z-index: 1; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
             vertical-align: middle;
         }
 
-        .table-header th:last-child {
-            border-right: none;
-        }
-
-        .table-header th:first-child {
-            width: 80px;
-        }
+        .table-header th:last-child { border-right: none; }
+        .table-header th:first-child { width: 80px; }
 
         .team-row {
-            opacity: 0;
-            transform: translateX(-150px) scale(0.95);
+            opacity: 0; transform: translateX(-150px) scale(0.95);
             animation: slideInScale 2.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.6s ease;
+            position: relative; overflow: hidden; transition: all 0.6s ease;
             border-bottom: 1px solid rgba(59, 130, 246, 0.2);
         }
 
@@ -286,36 +131,20 @@
         }
 
         .team-row td {
-            padding: 12px 8px;
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            z-index: 2;
-            color: white;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            text-align: center;
-            vertical-align: middle;
+            padding: 12px 8px; border-right: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative; z-index: 2; color: white; font-family: 'Inter', sans-serif;
+            font-weight: 600; text-align: center; vertical-align: middle;
         }
 
-        .team-row td:last-child {
-            border-right: none;
-        }
+        .team-row td:last-child { border-right: none; }
 
-        /* Team color definitions */
         :root {
-            --olympiakos: #dc1414;
-            --paok: #1a1a1a;
-            --milon: #228B22;
-            --panathinaikos: #16a34a;
-            --kifisia: #4169E1;
-            --foinikas: #FF4500;
-            --floisvos: #1E90FF;
-            --ofh: #2c2c2c;
-            --panionios: #DC143C;
+            --olympiakos: #dc1414; --paok: #1a1a1a; --milon: #228B22;
+            --panathinaikos: #16a34a; --kifisia: #4169E1; --foinikas: #FF4500;
+            --floisvos: #1E90FF; --ofh: #2c2c2c; --panionios: #DC143C;
             --kalamata: #32CD32;
         }
 
-        /* Team gradients */
         .olympiakos { background: linear-gradient(135deg, var(--olympiakos) 0%, #991b1b 50%, #7f1d1d 100%); }
         .panathinaikos { background: linear-gradient(135deg, var(--panathinaikos) 0%, #15803d 50%, #166534 100%); }
         .paok { background: linear-gradient(135deg, var(--paok) 0%, #111827 50%, #030712 100%); }
@@ -328,65 +157,43 @@
         .kalamata { background: linear-gradient(135deg, var(--kalamata) 0%, #16a34a 50%, #15803d 100%); }
 
         .position {
-            font-weight: 900;
-            font-size: 20px;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
-            width: 80px;
+            font-weight: 900; font-size: 20px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7); width: 80px;
         }
 
         .team-logo {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 9px;
-            color: white;
+            width: 35px; height: 35px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold; font-size: 9px; color: white;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
             border: 2px solid rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.9);
-            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.9); flex-shrink: 0;
         }
 
-        .team-info {
-            display: flex;
-            align-items: center;
-            gap: 35px;
-        }
+        .team-info { display: flex; align-items: center; gap: 35px; }
 
         .team-name {
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 24px;
-            color: #f8fafc;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+            font-family: 'Inter', sans-serif; font-weight: 700; font-size: 24px;
+            color: #f8fafc; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
         }
 
         .points {
-            font-family: 'Inter', sans-serif;
-            font-weight: 900;
-            font-size: 24px;
-            color: #f8fafc;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+            font-family: 'Inter', sans-serif; font-weight: 900; font-size: 24px;
+            color: #f8fafc; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
         }
 
         .matches {
-            font-family: 'Inter', sans-serif;
-            color: #e2e8f0;
-            font-weight: 600;
-            font-size: 24px;
+            font-family: 'Inter', sans-serif; color: #e2e8f0;
+            font-weight: 600; font-size: 24px;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
 
-        /* League Logo */
-       .league-logo {
-            position:absolute; bottom:50px; left:50%; transform:translateX(-50%);
-            width:180px; height:180px; z-index:20;
-            opacity:0; transform:translateX(-50%) scale(0.3);
-            animation:logoZoomGlow 2s ease-out 4s forwards;
+        .league-logo {
+            position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
+            width: 180px; height: 180px; z-index: 20;
+            opacity: 0; transform: translateX(-50%) scale(0.3);
+            animation: logoZoomGlow 2s ease-out 4s forwards;
         }
 
         @keyframes logoZoomGlow {
@@ -396,8 +203,8 @@
         }
 
         .league-logo img {
-            width:150%; height:150%; object-fit:contain;
-            animation:logoGlow 3s ease-in-out infinite;
+            width: 150%; height: 150%; object-fit: contain;
+            animation: logoGlow 3s ease-in-out infinite;
         }
 
         @keyframes logoGlow {
@@ -409,16 +216,16 @@
             }
         }
 
-
+        .loading {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            color: #fff; font-size: 24px; z-index: 100;
+        }
     </style>
 </head>
 <body>
-    <!-- Main Graphics Container - Fixed 1920x1080 -->
     <div class="graphics-container" id="graphicsContainer">
-        <!-- 3D Volleyball Scene -->
         <div class="volleyball-3d-scene" id="volleyball-3d-scene"></div>
         
-        <!-- Moving Lines Animation -->
         <div class="moving-lines">
             <div class="line line-1"></div>
             <div class="line line-2"></div>
@@ -427,10 +234,10 @@
             <div class="line line-5"></div>
         </div>
         
-        <!-- Title -->
         <div class="title">ΒΑΘΜΟΛΟΓΙΑ VOLLEYBALL LEAGUE</div>
         
-        <!-- Standings Container -->
+        <!-- <div class="loading" id="loading">Φόρτωση βαθμολογίας...</div> -->
+        
         <div class="standings-container">
             <table class="standings-table">
                 <thead class="table-header">
@@ -441,129 +248,71 @@
                         <th>ΑΓΩΝΕΣ</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr class="team-row panathinaikos">
-                        <td class="position">1</td>
-                        <td>
-                            <div class="team-info">
-                                <div class="team-logo"><img src="panathinaikos.png"></div>
-                                <div class="team-name">ΠΑΝΑΘΗΝΑΙΚΟΣ</div>
-                            </div>
-                        </td>
-                        <td class="points">0</td>
-                        <td class="matches">0</td>
-                    </tr>
-                    <tr class="team-row olympiakos">
-                        <td class="position">2</td>
-                        <td>
-                            <div class="team-info">
-                                <div class="team-logo"><img src="olympiakos.png"></div>
-                                <div class="team-name">ΟΛΥΜΠΙΑΚΟΣ</div>
-                            </div>
-                        </td>
-                        <td class="points">0</td>
-                        <td class="matches">0</td>
-                    </tr>
-                    <tr class="team-row milon">
-                        <td class="position">3</td>
-                        <td>
-                            <div class="team-info">
-                                <div class="team-logo"><img src="milon.png"></div>
-                                <div class="team-name">ΜΙΛΩΝ</div>
-                            </div>
-                        </td>
-                        <td class="points">0</td>
-                        <td class="matches">0</td>
-                    </tr>
-                    <tr class="team-row paok">
-                        <td class="position">4</td>
-                        <td>
-                            <div class="team-info">
-                                <div class="team-logo"><img src="paok.png"></div>
-                                <div class="team-name">Π.Α.Ο.Κ.</div>
-                            </div>
-                        </td>
-                        <td class="points">0</td>
-                        <td class="matches">0</td>
-                    </tr>
-                    <tr class="team-row kifisia">
-                        <td class="position">5</td>
-                        <td>
-                            <div class="team-info">
-                                <div class="team-logo"><img src="kifisia.png"></div>
-                                <div class="team-name">ΚΗΦΙΣΙΑ</div>
-                            </div>
-                        </td>
-                        <td class="points">0</td>
-                        <td class="matches">0</td>
-                    </tr>
-                    <tr class="team-row foinikas">
-                        <td class="position">6</td>
-                        <td>
-                            <div class="team-info">
-                                <div class="team-logo"><img src="foinika.png"></div>
-                                <div class="team-name">ΦΟΙΝΙΚΑΣ ΣΥΡΟΥ</div>
-                            </div>
-                        </td>
-                        <td class="points">0</td>
-                        <td class="matches">0</td>
-                    </tr>
-                    <tr class="team-row panionios">
-                        <td class="position">7</td>
-                        <td>
-                            <div class="team-info">
-                                <div class="team-logo"><img src="panionios.png"></div>
-                                <div class="team-name">ΠΑΝΙΩΝΙΟΣ</div>
-                            </div>
-                        </td>
-                        <td class="points">0</td>
-                        <td class="matches">0</td>
-                    </tr>
-                    <tr class="team-row floisvos">
-                        <td class="position">8</td>
-                        <td>
-                            <div class="team-info">
-                                <div class="team-logo"><img src="floisvos.png"></div>
-                                <div class="team-name">ΦΛΟΙΣΒΟΣ Π.</div>
-                            </div>
-                        </td>
-                        <td class="points">0</td>
-                        <td class="matches">0</td>
-                    </tr>
-                    <tr class="team-row ofh">
-                        <td class="position">9</td>
-                        <td>
-                            <div class="team-info">
-                                <div class="team-logo"><img src="ofi.png"></div>
-                                <div class="team-name">Ο.Φ.Η.</div>
-                            </div>
-                        </td>
-                        <td class="points">0</td>
-                        <td class="matches">0</td>
-                    </tr>
-                    <tr class="team-row kalamata">
-                        <td class="position">10</td>
-                        <td>
-                            <div class="team-info">
-                                <div class="team-logo"><img src="kalamata.png"></div>
-                                <div class="team-name">ΚΑΛΑΜΑΤΑ</div>
-                            </div>
-                        </td>
-                        <td class="points">0</td>
-                        <td class="matches">0</td>
-                    </tr>
-                </tbody>
+                <tbody id="standingsBody"></tbody>
             </table>
         </div>
 
-        <!-- League Logo -->
         <div class="league-logo">
             <img src="VL_logo.png" alt="Greek Volleyball League">
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-      <script>
+    <script>
+        const teams = {
+            'ΠΑΝΑΘΗΝΑΙΚΟΣ': { logo: 'panathinaikos.png', className: 'panathinaikos' },
+            'ΟΛΥΜΠΙΑΚΟΣ': { logo: 'olympiakos.png', className: 'olympiakos' },
+            'ΜΙΛΩΝ': { logo: 'milon.png', className: 'milon' },
+            'Π.Α.Ο.Κ.': { logo: 'paok.png', className: 'paok' },
+            'ΚΗΦΙΣΙΑ': { logo: 'kifisia.png', className: 'kifisia' },
+            'ΦΟΙΝΙΚΑΣ ΣΥΡΟΥ': { logo: 'foinika.png', className: 'foinikas' },
+            'ΠΑΝΙΩΝΙΟΣ': { logo: 'panionios.png', className: 'panionios' },
+            'ΦΛΟΙΣΒΟΣ Π.': { logo: 'floisvos.png', className: 'floisvos' },
+            'Ο.Φ.Η.': { logo: 'ofi.png', className: 'ofh' },
+            'ΚΑΛΑΜΑΤΑ': { logo: 'kalamata.png', className: 'kalamata' }
+        };
+
+        async function loadStandings() {
+            try {
+                const response = await fetch('volleyball-standings.json');
+                const standings = await response.json();
+                
+                renderStandings(standings);
+                document.getElementById('loading').style.display = 'none';
+            } catch (error) {
+                console.error('Error loading standings:', error);
+                document.getElementById('loading').textContent = 'Σφάλμα φόρτωσης βαθμολογίας';
+            }
+        }
+
+        function renderStandings(standings) {
+            const tbody = document.getElementById('standingsBody');
+            tbody.innerHTML = '';
+
+            standings.forEach((standing, index) => {
+                const team = teams[standing.team];
+                if (!team) return;
+
+                const row = document.createElement('tr');
+                row.className = `team-row ${team.className}`;
+                
+                row.innerHTML = `
+                    <td class="position">${index + 1}</td>
+                    <td>
+                        <div class="team-info">
+                            <div class="team-logo"><img src="${team.logo}"></div>
+                            <div class="team-name">${standing.team}</div>
+                        </div>
+                    </td>
+                    <td class="points">${standing.points}</td>
+                    <td class="matches">${standing.matches}</td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        // 3D Volleyball Scene
         let scene, camera, renderer, volleyballs = [];
         let animationId;
 
@@ -710,58 +459,11 @@
             document.querySelector('.graphics-container').style.transform = `scale(${scale})`;
         }
 
-        function restartAnimation() {
-            const container = document.getElementById('graphicsContainer');
-            const title = document.querySelector('.title');
-            const scheduleContainer = document.querySelector('.schedule-container');
-            const rows = document.querySelectorAll('.game-row');
-            const logo = document.querySelector('.league-logo');
-            
-            container.classList.add('loop-reset');
-            container.offsetHeight;
-            
-            setTimeout(() => {
-                container.classList.remove('loop-reset');
-                
-                title.style.animation = 'none';
-                title.offsetHeight;
-                title.style.animation = 'titleSlideIn 2s ease-out 0.5s forwards';
-                
-                scheduleContainer.style.animation = 'none';
-                scheduleContainer.offsetHeight;
-                scheduleContainer.style.animation = 'containerSlideIn 2s ease-out 1.5s forwards';
-                
-                rows.forEach((row, index) => {
-                    row.style.animation = 'none';
-                    row.offsetHeight;
-                    row.style.animation = `slideInScaleGlow 2.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${2.5 + (index * 0.3)}s forwards`;
-                });
-
-                logo.style.animation = 'none';
-                logo.offsetHeight;
-                logo.style.animation = 'logoZoomGlow 2s ease-out 4s forwards';
-            }, 100);
-        }
-
-        function autoLoop() {
-            setInterval(() => {
-                restartAnimation();
-            }, 20000);
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Enhanced Greek Volleyball Results loaded');
-            
+            console.log('Volleyball Standings loaded');
+            loadStandings();
             init3D();
             window.addEventListener('resize', onWindowResize);
-            
-            setTimeout(() => {
-                restartAnimation();
-            }, 100);
-            
-            setTimeout(() => {
-                autoLoop();
-            }, 10000);
         });
 
         window.addEventListener('beforeunload', function() {
