@@ -48,12 +48,13 @@
 
         .title {
             position: absolute; top: 50px; left: 50%; transform: translateX(-50%);
-            color: #f8fafc; font-size: 48px; font-weight: 900;
+            color: #f8fafc; font-size: 52px; font-weight: 900;
             text-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
             background: linear-gradient(135deg, #f8fafc 0%, #3b82f6 100%);
             background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             z-index: 15; opacity: 0; transform: translateX(-50%) translateY(-30px);
             animation: titleSlideIn 2s ease-out 0.5s forwards;
+            white-space: nowrap;
         }
 
         @keyframes titleSlideIn { to { opacity: 1; transform: translateX(-50%) translateY(0); } }
@@ -236,7 +237,7 @@
         
         <div class="title">ΒΑΘΜΟΛΟΓΙΑ VOLLEYBALL LEAGUE</div>
         
-        <!-- <div class="loading" id="loading">Φόρτωση βαθμολογίας...</div> -->
+        <div class="loading" id="loading">Φόρτωση βαθμολογίας...</div>
         
         <div class="standings-container">
             <table class="standings-table">
@@ -260,16 +261,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
         const teams = {
-            'ΠΑΝΑΘΗΝΑΪΚΟΣ AO': { logo: 'panathinaikos.png', className: 'panathinaikos' },
-            'ΟΛΥΜΠΙΑΚΟΣ ΣΦΠ OΝΕΧ': { logo: 'olympiakos.png', className: 'olympiakos' },
-            'ΑΟΝΣ ΜΙΛΩΝ': { logo: 'milon.png', className: 'milon' },
-            'ΠΑΟΚ': { logo: 'paok.png', className: 'paok' },
-            'ΑΟΠ ΚΗΦΙΣΙΑΣ': { logo: 'kifisia.png', className: 'kifisia' },
-            'ΑΟ ΦΟΙΝΙΚΑΣ ΣΥΡΟΥ': { logo: 'foinikas.png', className: 'foinikas' },
+            'ΠΑΝΑΘΗΝΑΙΚΟΣ': { logo: 'panathinaikos.png', className: 'panathinaikos' },
+            'ΟΛΥΜΠΙΑΚΟΣ': { logo: 'olympiakos.png', className: 'olympiakos' },
+            'ΜΙΛΩΝ': { logo: 'milon.png', className: 'milon' },
+            'Π.Α.Ο.Κ.': { logo: 'paok.png', className: 'paok' },
+            'ΚΗΦΙΣΙΑ': { logo: 'kifisia.png', className: 'kifisia' },
+            'ΦΟΙΝΙΚΑΣ ΣΥΡΟΥ': { logo: 'foinika.png', className: 'foinikas' },
             'ΠΑΝΙΩΝΙΟΣ': { logo: 'panionios.png', className: 'panionios' },
-            'ΑΟ ΦΛΟΙΣΒΟΣ MEMBERS PARON': { logo: 'floisvos.png', className: 'floisvos' },
-            'ΟΦΗ': { logo: 'ofi.png', className: 'ofh' },
-            'ΑΟ ΚΑΛΑΜΑΤΑ 80 AFFIDEA"': { logo: 'kalamata.png', className: 'kalamata' }
+            'ΦΛΟΙΣΒΟΣ Π.': { logo: 'floisvos.png', className: 'floisvos' },
+            'Ο.Φ.Η.': { logo: 'ofi.png', className: 'ofh' },
+            'ΚΑΛΑΜΑΤΑ': { logo: 'kalamata.png', className: 'kalamata' }
         };
 
         async function loadStandings() {
