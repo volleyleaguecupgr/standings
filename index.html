@@ -1,571 +1,154 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏐 Standings Control Panel</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #0f172a;
-            color: #f8fafc;
-            padding: 40px 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        h1 {
-            color: #3b82f6;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-            font-weight: 800;
-        }
-        
-        .credentials {
-            background: #1e293b;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            border: 1px solid #334155;
-        }
-        
-        .credentials h3 {
-            margin-bottom: 15px;
-            color: #60a5fa;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #94a3b8;
-            font-size: 0.875rem;
-        }
-        
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: none;
-            background: #334155;
-            color: #fff;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        input:focus, select:focus {
-            outline: 2px solid #3b82f6;
-        }
-        
-        .panel {
-            background: #1e293b;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            border: 1px solid #334155;
-        }
-        
-        .panel h2 {
-            color: #60a5fa;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .team-row {
-            background: #334155;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border: 1px solid #475569;
-        }
-        
-        .position {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 1.25rem;
-            flex-shrink: 0;
-        }
-        
-        .team-select {
-            flex: 1;
-            min-width: 0;
-        }
-        
-        .stat-input {
-            width: 100px;
-            flex-shrink: 0;
-        }
-        
-        .stat-label {
-            font-size: 0.75rem;
-            color: #94a3b8;
-            margin-bottom: 3px;
-            text-align: center;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        
-        .delete-btn {
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.2s;
-            flex-shrink: 0;
-        }
-        
-        .delete-btn:hover {
-            background: #dc2626;
-        }
-        
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.2s;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .btn-primary {
-            background: #3b82f6;
-            color: white;
-            margin-right: 10px;
-        }
-        
-        .btn-primary:hover {
-            background: #2563eb;
-        }
-        
-        .btn-secondary {
-            background: #8b5cf6;
-            color: white;
-            margin-right: 10px;
-        }
-        
-        .btn-secondary:hover {
-            background: #7c3aed;
-        }
-        
-        .btn-success {
-            background: #10b981;
-            color: white;
-            margin-right: 10px;
-        }
-        
-        .btn-success:hover {
-            background: #059669;
-        }
-        
-        .btn-warning {
-            background: #f59e0b;
-            color: white;
-        }
-        
-        .btn-warning:hover {
-            background: #d97706;
-        }
-        
-        .button-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        
-        .status-message {
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-weight: 600;
-            display: none;
-        }
-        
-        .status-success {
-            background: #dcfce7;
-            color: #166534;
-            border: 1px solid #86efac;
-        }
-        
-        .status-error {
-            background: #fee2e2;
-            color: #991b1b;
-            border: 1px solid #fca5a5;
-        }
-        
-        .status-info {
-            background: #dbeafe;
-            color: #1e40af;
-            border: 1px solid #93c5fd;
-        }
-        
-        .save-btn {
-            background: #22c55e;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 10px;
-        }
-        
-        .save-btn:hover {
-            background: #16a34a;
-        }
-        
-        @media (max-width: 768px) {
-            .team-row {
-                flex-wrap: wrap;
-            }
-            
-            .team-select {
-                flex: 1 1 100%;
-            }
-            
-            .stat-input {
-                width: calc(50% - 7.5px);
-            }
-            
-            .grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏐 Gameday Referee Panel</title>
+<style>
+body { font-family: 'Inter', sans-serif; background: #0f172a; color: #f8fafc; padding: 30px; }
+.container { max-width: 1000px; margin: 0 auto; }
+h1 { color: #3b82f6; margin-bottom: 20px; }
+.panel { background: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; margin-bottom: 20px; }
+label { display: block; margin-top: 10px; font-weight: 600; color: #94a3b8; }
+select, input { width: 100%; padding: 8px; border-radius: 8px; border: none; background: #334155; color: #fff; margin-top: 5px; }
+button { margin-top: 15px; padding: 10px 20px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
+button.primary { background: #3b82f6; color: white; }
+button.success { background: #10b981; color: white; }
+.status { margin-top: 15px; padding: 10px; border-radius: 8px; display: none; }
+.status.success { background: #dcfce7; color: #166534; }
+.status.error { background: #fee2e2; color: #991b1b; }
+.game-row { background: #334155; padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #475569; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>🏐 Volleyball Standings Control Panel</h1>
-        
-        <!-- GitHub Credentials -->
-        <div class="credentials">
-            <h3>🔐 GitHub Connection</h3>
-            <div class="grid">
-                <div>
-                    <label>GitHub Username</label>
-                    <input type="text" id="githubOwner" placeholder="e.g. nickkapsis">
-                </div>
-                <div>
-                    <label>Repository Name</label>
-                    <input type="text" id="githubRepo" placeholder="e.g. volleyball-data">
-                </div>
-                <div>
-                    <label>Personal Access Token</label>
-                    <input type="password" id="githubToken" placeholder="GitHub PAT (repo scope)">
-                </div>
-                <div>
-                    <label>Branch</label>
-                    <input type="text" id="githubBranch" value="main" placeholder="main">
-                </div>
-            </div>
-            <button class="save-btn" onclick="saveGithubConfig()">💾 Save Settings</button>
-        </div>
-        
-        <!-- Status Message -->
-        <div id="statusMessage" class="status-message"></div>
-        
-        <!-- Standings Panel -->
-        <div class="panel">
-            <h2>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 3v18h18"></path>
-                    <path d="M18 17V9"></path>
-                    <path d="M13 17V5"></path>
-                    <path d="M8 17v-3"></path>
-                </svg>
-                Βαθμολογία (<span id="teamCount">0</span> Ομάδες)
-            </h2>
-            
-            <div id="standingsContainer"></div>
-            
-            <div class="button-group">
-                <button class="btn btn-primary" onclick="addTeam()">➕ Add Team</button>
-                <button class="btn btn-secondary" onclick="sortStandings()">⬇️ Sort by Points</button>
-                <button class="btn btn-warning" onclick="loadFromGitHub()">📥 Load from GitHub</button>
-                <button class="btn btn-success" onclick="uploadToGitHub()" id="uploadBtn">🚀 Update JSON on GitHub</button>
-            </div>
-        </div>
-    </div>
+<div class="container">
+<h1>🏐 Gameday Referee Panel</h1>
 
-    <script>
-        const teams = [
-            { name: 'ΠΑΝΑΘΗΝΑΪΚΟΣ AO', logo: 'panathinaikos.png', className: 'panathinaikos' },
-            { name: 'ΟΛΥΜΠΙΑΚΟΣ ΣΦΠ OΝΕΧ', logo: 'olympiakos.png', className: 'olympiakos' },
-            { name: 'ΑΟΝΣ ΜΙΛΩΝ', logo: 'milon.png', className: 'milon' },
-            { name: 'ΠΑΟΚ', logo: 'paok.png', className: 'paok' },
-            { name: 'ΑΟΠ ΚΗΦΙΣΙΑΣ', logo: 'kifisia.png', className: 'kifisia' },
-            { name: 'ΑΟ ΦΟΙΝΙΚΑΣ ΣΥΡΟΥ', logo: 'foinikas.png', className: 'foinikas' },
-            { name: 'ΠΑΝΙΩΝΙΟΣ', logo: 'panionios.png', className: 'panionios' },
-            { name: 'ΑΟ ΦΛΟΙΣΒΟΣ MEMBERS PARON', logo: 'floisvos.png', className: 'floisvos' },
-            { name: 'ΟΦΗ', logo: 'ofi.png', className: 'ofh' },
-            { name: 'ΑΟ ΚΑΛΑΜΑΤΑ 80 AFFIDEA', logo: 'kalamata.png', className: 'kalamata' }
-        ];
+<!-- GitHub Credentials -->
+<div class="panel">
+    <h2>🔐 GitHub Settings</h2>
+    <label>Username</label><input type="text" id="githubOwner">
+    <label>Repository</label><input type="text" id="githubRepo">
+    <label>Personal Access Token</label><input type="password" id="githubToken">
+    <label>Branch</label><input type="text" id="githubBranch" value="main">
+    <button class="primary" onclick="saveGithubConfig()">💾 Save Settings</button>
+</div>
 
-        let standings = [];
+<!-- Games -->
+<div class="panel">
+    <h2>🎮 Games</h2>
+    <div id="gamesContainer"></div>
+    <button class="primary" onclick="addGame()">➕ Add Game</button>
+</div>
 
-        window.addEventListener('DOMContentLoaded', function() {
-            loadLocalData();
-            loadGithubConfig();
-            renderStandings();
-        });
+<button class="success" onclick="uploadToGitHub()">🚀 Upload JSON to GitHub</button>
+<div id="statusMessage" class="status"></div>
+</div>
 
-        function loadLocalData() {
-            const saved = localStorage.getItem('volleyball_standings');
-            if (saved) {
-                standings = JSON.parse(saved);
-            }
-        }
+<script>
+const teams = [
+    { name: 'ΠΑΝΑΘΗΝΑΪΚΟΣ AO', logo: 'panathinaikos.png', className: 'panathinaikos' },
+    { name: 'ΟΛΥΜΠΙΑΚΟΣ ΣΦΠ OΝΕΧ', logo: 'olympiakos.png', className: 'olympiakos' },
+    { name: 'ΑΟΝΣ ΜΙΛΩΝ', logo: 'milon.png', className: 'milon' },
+    { name: 'ΠΑΟΚ', logo: 'paok.png', className: 'paok' },
+    { name: 'ΑΟΠ ΚΗΦΙΣΙΑΣ', logo: 'kifisia.png', className: 'kifisia' },
+    { name: 'ΑΟ ΦΟΙΝΙΚΑΣ ΣΥΡΟΥ', logo: 'foinikas.png', className: 'foinikas' },
+    { name: 'ΠΑΝΙΩΝΙΟΣ', logo: 'panionios.png', className: 'panionios' },
+    { name: 'ΑΟ ΦΛΟΙΣΒΟΣ MEMBERS PARON', logo: 'floisvos.png', className: 'floisvos' },
+    { name: 'ΟΦΗ', logo: 'ofi.png', className: 'ofi' },
+    { name: 'ΑΟ ΚΑΛΑΜΑΤΑ 80 AFFIDEA', logo: 'kalamata.png', className: 'kalamata' }
+];
 
-        function saveLocalData() {
-            localStorage.setItem('volleyball_standings', JSON.stringify(standings));
-            renderStandings();
-        }
+let games = [];
 
-        function loadGithubConfig() {
-            const token = localStorage.getItem('github_token');
-            const owner = localStorage.getItem('github_owner');
-            const repo = localStorage.getItem('github_repo');
-            const branch = localStorage.getItem('github_branch');
+function saveGithubConfig() {
+    localStorage.setItem('githubOwner', document.getElementById('githubOwner').value);
+    localStorage.setItem('githubRepo', document.getElementById('githubRepo').value);
+    localStorage.setItem('githubToken', document.getElementById('githubToken').value);
+    localStorage.setItem('githubBranch', document.getElementById('githubBranch').value);
+    showStatus('success', '✅ GitHub settings saved!');
+}
 
-            if (token) document.getElementById('githubToken').value = token;
-            if (owner) document.getElementById('githubOwner').value = owner;
-            if (repo) document.getElementById('githubRepo').value = repo;
-            if (branch) document.getElementById('githubBranch').value = branch;
-        }
+function showStatus(type, text) {
+    const div = document.getElementById('statusMessage');
+    div.className = 'status ' + type;
+    div.textContent = text;
+    div.style.display = 'block';
+    setTimeout(()=> div.style.display='none', 4000);
+}
 
-        function saveGithubConfig() {
-            localStorage.setItem('github_token', document.getElementById('githubToken').value);
-            localStorage.setItem('github_owner', document.getElementById('githubOwner').value);
-            localStorage.setItem('github_repo', document.getElementById('githubRepo').value);
-            localStorage.setItem('github_branch', document.getElementById('githubBranch').value);
-            showStatus('success', '✅ GitHub settings saved successfully!');
-        }
+function addGame() {
+    if (games.length >= 5) return showStatus('error', 'Μπορείτε να προσθέσετε μόνο 5 παιχνίδια.');
+    const game = { homeTeam:'', awayTeam:'', refs:{referees:[], observer:'', challengeRef:'', linesmen:[], secretariat:''} };
+    games.push(game);
+    renderGames();
+}
 
-        function addTeam() {
-            standings.push({
-                team: '',
-                points: 0,
-                matches: 0
-            });
-            saveLocalData();
-        }
+function removeGame(idx) { games.splice(idx,1); renderGames(); }
 
-        function removeTeam(index) {
-            standings.splice(index, 1);
-            saveLocalData();
-        }
+function updateGame(idx, field, value, subfield=null, subidx=null) {
+    if(subfield!==null){
+        if(Array.isArray(games[idx].refs[subfield])){
+            games[idx].refs[subfield][subidx] = value;
+        } else { games[idx].refs[subfield] = value; }
+    } else { games[idx][field] = value; }
+}
 
-        function updateTeam(index, field, value) {
-            standings[index][field] = field === 'team' ? value : parseInt(value) || 0;
-            saveLocalData();
-        }
+function renderGames() {
+    const container = document.getElementById('gamesContainer');
+    container.innerHTML = '';
+    games.forEach((g,i)=>{
+        const div = document.createElement('div');
+        div.className='game-row';
 
-        function sortStandings() {
-            standings.sort((a, b) => {
-                if (b.points !== a.points) {
-                    return b.points - a.points;
-                }
-                return a.team.localeCompare(b.team, 'el');
-            });
-            saveLocalData();
-        }
+        const teamOptions = teams.map(t=>`<option value="${t.name}" ${g.homeTeam===t.name?'selected':''}>${t.name}</option>`).join('');
 
-        function renderStandings() {
-            const container = document.getElementById('standingsContainer');
-            const teamCount = document.getElementById('teamCount');
-            container.innerHTML = '';
-            teamCount.textContent = standings.length;
+        div.innerHTML=`
+            <label>Home Team</label>
+            <select onchange="updateGame(${i}, 'homeTeam', this.value)">
+                <option value="">Select Team</option>${teamOptions}
+            </select>
 
-            standings.forEach((standing, index) => {
-                const row = document.createElement('div');
-                row.className = 'team-row';
-                
-                row.innerHTML = `
-                    <div class="position">${index + 1}</div>
-                    
-                    <div class="team-select">
-                        <select onchange="updateTeam(${index}, 'team', this.value)">
-                            <option value="">Select Team</option>
-                            ${teams.map(t => `<option value="${t.name}" ${standing.team === t.name ? 'selected' : ''}>${t.name}</option>`).join('')}
-                        </select>
-                    </div>
-                    
-                    <div class="stat-input">
-                        <div class="stat-label">Points</div>
-                        <input type="number" value="${standing.points}" min="0"
-                            onchange="updateTeam(${index}, 'points', this.value)">
-                    </div>
-                    
-                    <div class="stat-input">
-                        <div class="stat-label">Matches</div>
-                        <input type="number" value="${standing.matches}" min="0"
-                            onchange="updateTeam(${index}, 'matches', this.value)">
-                    </div>
-                    
-                    <button class="delete-btn" onclick="removeTeam(${index})">🗑️</button>
-                `;
+            <label>Away Team</label>
+            <select onchange="updateGame(${i}, 'awayTeam', this.value)">
+                <option value="">Select Team</option>${teamOptions}
+            </select>
 
-                container.appendChild(row);
-            });
-        }
+            <label>Referees (comma separated)</label>
+            <input type="text" value="${g.refs.referees.join(', ')}" onchange="updateGame(${i}, 'refs', this.value.split(',').map(s=>s.trim()), 'referees')">
+            <label>Observer</label>
+            <input type="text" value="${g.refs.observer}" onchange="updateGame(${i}, 'refs', this.value, 'observer')">
+            <label>Challenge Referee</label>
+            <input type="text" value="${g.refs.challengeRef}" onchange="updateGame(${i}, 'refs', this.value, 'challengeRef')">
+            <label>Linesmen (comma separated)</label>
+            <input type="text" value="${g.refs.linesmen.join(', ')}" onchange="updateGame(${i}, 'refs', this.value.split(',').map(s=>s.trim()), 'linesmen')">
+            <label>Secretariat</label>
+            <input type="text" value="${g.refs.secretariat}" onchange="updateGame(${i}, 'refs', this.value, 'secretariat')">
+            <button onclick="removeGame(${i})" style="background:#ef4444;color:white;">🗑️ Remove</button>
+        `;
+        container.appendChild(div);
+    });
+}
 
-        function showStatus(type, message) {
-            const statusDiv = document.getElementById('statusMessage');
-            statusDiv.className = 'status-message status-' + type;
-            statusDiv.textContent = message;
-            statusDiv.style.display = 'block';
-            
-            setTimeout(() => {
-                statusDiv.style.display = 'none';
-            }, 5000);
-        }
+async function uploadToGitHub() {
+    const token = document.getElementById('githubToken').value;
+    const owner = document.getElementById('githubOwner').value;
+    const repo = document.getElementById('githubRepo').value;
+    const branch = document.getElementById('githubBranch').value;
+    if(!token||!owner||!repo) return showStatus('error','⚠️ Fill GitHub info first');
 
-        async function loadFromGitHub() {
-            const token = document.getElementById('githubToken').value.trim();
-            const owner = document.getElementById('githubOwner').value.trim();
-            const repo = document.getElementById('githubRepo').value.trim();
+    const url=`https://api.github.com/repos/${owner}/${repo}/contents/gameday.json`;
+    let sha=null;
+    try { const r=await fetch(url,{headers:{Authorization:`token ${token}`, Accept:'application/vnd.github.v3+json'}}); if(r.ok){ const d=await r.json(); sha=d.sha; } } catch(e){ console.log('File does not exist, will create new'); }
 
-            if (!token || !owner || !repo) {
-                showStatus('error', '⚠️ Please fill in your GitHub credentials first.');
-                return;
-            }
-
-            showStatus('info', 'Loading from GitHub...');
-
-            try {
-                const url = `https://api.github.com/repos/${owner}/${repo}/contents/volleyball-standings.json`;
-                const response = await fetch(url, {
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Accept': 'application/vnd.github.v3+json'
-                    }
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    const content = atob(data.content);
-                    standings = JSON.parse(content);
-                    saveLocalData();
-                    showStatus('success', '✅ Successfully loaded from GitHub!');
-                } else {
-                    throw new Error('File not found');
-                }
-            } catch (error) {
-                showStatus('error', `❌ Error: ${error.message}`);
-            }
-        }
-
-        async function uploadToGitHub() {
-            const token = document.getElementById('githubToken').value.trim();
-            const owner = document.getElementById('githubOwner').value.trim();
-            const repo = document.getElementById('githubRepo').value.trim();
-            const branch = document.getElementById('githubBranch').value.trim();
-
-            if (!token || !owner || !repo) {
-                showStatus('error', '⚠️ Please fill in your GitHub credentials first.');
-                return;
-            }
-
-            if (standings.length === 0) {
-                showStatus('error', '⚠️ Please add at least one team before uploading.');
-                return;
-            }
-
-            const uploadBtn = document.getElementById('uploadBtn');
-            uploadBtn.disabled = true;
-            uploadBtn.textContent = '⏳ Uploading...';
-            showStatus('info', 'Uploading to GitHub...');
-
-            try {
-                const url = `https://api.github.com/repos/${owner}/${repo}/contents/volleyball-standings.json`;
-                
-                let sha = null;
-                try {
-                    const getResponse = await fetch(url, {
-                        headers: {
-                            'Authorization': `token ${token}`,
-                            'Accept': 'application/vnd.github.v3+json'
-                        }
-                    });
-                    
-                    if (getResponse.ok) {
-                        const data = await getResponse.json();
-                        sha = data.sha;
-                    }
-                } catch (e) {
-                    console.log('File does not exist, will create new');
-                }
-
-                const jsonContent = JSON.stringify(standings, null, 2);
-                const encodedContent = btoa(unescape(encodeURIComponent(jsonContent)));
-
-                const uploadResponse = await fetch(url, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Accept': 'application/vnd.github.v3+json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        message: 'Update volleyball standings',
-                        content: encodedContent,
-                        branch: branch,
-                        ...(sha && { sha })
-                    })
-                });
-
-                if (!uploadResponse.ok) {
-                    const errorData = await uploadResponse.json();
-                    throw new Error(errorData.message || 'Failed to upload');
-                }
-
-                showStatus('success', '✅ volleyball-standings.json successfully updated on GitHub!');
-
-            } catch (error) {
-                showStatus('error', `❌ Error: ${error.message}`);
-            } finally {
-                uploadBtn.disabled = false;
-                uploadBtn.textContent = '🚀 Update JSON on GitHub';
-            }
-        }
-    </script>
+    const content=btoa(unescape(encodeURIComponent(JSON.stringify({games},null,2))));
+    const r2 = await fetch(url,{
+        method:'PUT',
+        headers:{Authorization:`token ${token}`, Accept:'application/vnd.github.v3+json'},
+        body: JSON.stringify({message:'Update gameday', content, branch, ...(sha?{sha}: {})})
+    });
+    if(r2.ok){ showStatus('success','✅ gameday.json updated!'); } else { showStatus('error','❌ Upload failed'); }
+}
+</script>
 </body>
 </html>
